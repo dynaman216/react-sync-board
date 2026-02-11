@@ -1,4 +1,32 @@
 
+1.2.11 / 2026-02-11
+===================
+
+  * Update version
+
+1.2.10 / 2026-02-10
+===================
+
+  * Fix web socket url
+  * Add pulsation animation
+
+1.2.9 / 2025-03-09
+==================
+
+  * Fix dim safe for good
+
+1.2.8 / 2025-03-09
+==================
+
+  * Add debug mode
+
+1.2.7 / 2024-07-21
+==================
+
+  * Use board uid and getElementById
+  * Improve performances
+  * Fix bug if missing linked item
+
 1.2.6 / 2024-03-09
 ==================
 

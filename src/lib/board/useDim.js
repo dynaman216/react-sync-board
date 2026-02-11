@@ -15,6 +15,8 @@ const TOLERANCE = 100;
 const MIN_SIZE = 1000;
 const SCALE_TOLERANCE = 0.8;
 
+let debug = false;
+
 /**
  * Return new board positions fixed to fit inside the board and not too far from the
  * item extent.
@@ -185,6 +187,8 @@ const useDim = () => {
         ...fn(prev),
       };
 
+      if (debug) console.log("New expected values: ", translateX, translateY, scale, newRotate);
+
       const newScale = clampScale(scale);
 
       let [newX, newY] = [translateX, translateY];
@@ -201,11 +205,13 @@ const useDim = () => {
         });
       }
 
+      if (debug) console.log("New fixed values: ", newX, newY, newScale, newRotate);
+
       updateBoardState({
-        translateX: newX,
-        translateY: newY,
-        scale: newScale,
-        rotate: newRotate,
+        translateX: isNaN(newX)? 0: newX,
+        translateY: isNaN(newY)? 0: newY,
+        scale: isNaN(newScale)? clampScale(1): newScale,
+        rotate: isNaN(newRotate) ? 0 : newRotate,
       });
     },
     [clampScale, getBoardState, getConfiguration, updateBoardState]
@@ -280,15 +286,18 @@ const useDim = () => {
       const { rotate } = getBoardState();
       const { boardWrapperRect, boardSize } = getConfiguration();
 
-      const scaleX = boardWrapperRect.width / (radius * 2);
-      const scaleY = boardWrapperRect.height / (radius * 2);
+      const [safeX, safeY, safeRadius] = [x || 0, y||0, radius || 2000]
+
+      const scaleX = boardWrapperRect.width / (safeRadius * 2);
+      const scaleY = boardWrapperRect.height / (safeRadius * 2);
 
       // The scale that fits in all dimensions with a border around
       const scale = clampScale(Math.min(scaleX, scaleY) * SCALE_TOLERANCE);
 
+
       // We apply the board transformations
       const [translateX, translateY] = transformTo(
-        [-boardSize / 2 - x, -boardSize / 2 - y],
+        [-boardSize / 2 - safeX, -boardSize / 2 - safeY],
         {
           translateX: boardWrapperRect.width / 2,
           translateY: boardWrapperRect.height / 2,
@@ -323,11 +332,11 @@ const useDim = () => {
   const updateItemExtent = React.useCallback(() => {
     // Update item extent
     const items = getItemList();
-    const { boardWrapper, boardSize } = getConfiguration();
+    const { boardSize, uid } = getConfiguration();
 
     const newRes = items.reduce(
       (boundingBox, item) => {
-        const elem = getItemElem(boardWrapper, item.id);
+        const elem = getItemElem(uid, item.id);
 
         if (elem) {
           boundingBox.left = Math.min(item.x, boundingBox.left);
@@ -391,6 +400,15 @@ const useDim = () => {
     [updateItemExtent],
     200
   );
+
+  React.useEffect(() => {
+    window.debugUpdateExtent = () => updateItemExtent();
+    window.debugDisplayExtent = () =>
+      console.log(getConfiguration().itemExtent);
+    window.debugSetDebug = () => {
+      debug = true;
+    }
+  }, [getConfiguration, updateItemExtent]);
 
   return {
     setDim: setDimSafe,
