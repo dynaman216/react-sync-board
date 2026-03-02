@@ -12,3 +12,17 @@ test
 target
 build
 coverage
+test
+node_modules
+.DS_Store
+src
+public
+example
+test
+*.iml
+*.ipr
+*.iws
+.idea/
+target
+build
+coverage
