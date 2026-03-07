@@ -1,4 +1,5 @@
 import React from "react";
+import useMainStore from "../lib/board/store/main";
 import {
   Provider as SocketIOProvider,
   useSocket,
@@ -15,8 +16,6 @@ import SelectedItemsPane from "./SelectedItemsPane";
 
 import Spinner from "./ui/Spinner";
 import useDim from "@/board/useDim";
-import { useLockView } from "../lib/contexts/LockViewContext.jsx";
-import { DEFAULT_BOARD_MAX_SIZE } from "@/settings";
 
 const STORYBOOK_SOCKET_URL = "https://wireio1.filai.re";
 const SOCKET_PATH = "/socket.io";
@@ -138,6 +137,18 @@ const defaultInitialItems = [
   },
 ];
 
+function handleCenterBoard(center, scale) {
+  center(prev => ({
+    ...prev,
+    translateX: -25000 * scale + window.innerWidth / 2,
+    translateY: -25000 * scale + window.innerHeight / 2,
+  }));
+}
+
+function handleLimitPan(getBoardState, updateBoardState, limitPan) {  
+  updateBoardState({ limitPan: !limitPan });
+}
+
 const AddItems = () => {
   const { pushItem } = useItemActions();
 
@@ -205,10 +216,16 @@ const UserList = () => {
 };
 
 const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
-  const { lockView, setLockView } = useLockView();
+  //const { lockView, setLockView } = useLockView();
   const { rotateBoard: rotate } = useDim();
-  const { centerBoard: center } = useDim();  
-  
+  const { centerBoard: center } = useDim();
+  const { scale } = useMainStore((state) => state.getBoardState());
+  const [getBoardState, updateBoardState] =
+      useMainStore((state) => [
+        state.getBoardState,
+        state.updateBoardState,
+      ]);
+
   return (
     <div
       style={{
@@ -238,7 +255,7 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
           <button onClick={() => rotate((prev) => prev - 12.5)}>
             Rotate counter clockwise
           </button>
-          <button onClick={() => center((prev) => ({ ...prev, translateX: -2500, translateY: -2500 }))}>
+          <button onClick={() => handleCenterBoard(center, scale)}>
             Center Board
           </button>
         </div>
@@ -258,8 +275,8 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
           <label>
             <input
               type="checkbox"
-              checked={lockView}
-              onChange={() => setLockView(v => !v)}
+              checked={getBoardState().limitPan}
+              onChange={() => handleLimitPan(getBoardState, updateBoardState, getBoardState().limitPan)}
             />{" "}
             Limit Pan
           </label>

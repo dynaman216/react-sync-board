@@ -1,5 +1,4 @@
 import { useState, useRef } from "react";
-import { LockViewProvider } from "@/contexts/LockViewContext.jsx";
 import {
   OneView,
   TwoView,
@@ -37,64 +36,61 @@ function App() {
   const [session] = useState("test_session");
   const [view, setView] = useState("one");
   const [moveFirst, setMoveFirst] = useState(true);
-  //const lockViewRef = useRef(true);
 
   return (
-    <LockViewProvider>
-      <div className="App">
-        <TopBar setView={setView} />
-        {view === "one" && (
-          <OneView
-            moveFirst={moveFirst}
-            setMoveFirst={setMoveFirst}
-            showResizeHandle={true}
-            hideMenu={false}
-            room={`${room}_one`}
-            session={`${session}_one`}
-          />
-        )}
-        {view === "style" && (
-          <OneViewWithRoom
-            moveFirst={moveFirst}
-            setMoveFirst={setMoveFirst}
-            showResizeHandle={false}
-            hideMenu={false}
-            room={`${room}_one`}
-            session={`${session}_one`}
-          />
-        )}
-        {view === "custom" && (
-          <OneViewWithCustomBoardElements
-            moveFirst={moveFirst}
-            setMoveFirst={setMoveFirst}
-            showResizeHandle={false}
-            hideMenu={false}
-            room={`${room}_custom`}
-            session={`${session}_custom`}
-          />
-        )}
-        {view === "two" && (
-          <TwoView
-            moveFirst={moveFirst}
-            setMoveFirst={setMoveFirst}
-            showResizeHandle={false}
-            hideMenu={false}
-            room={`${room}_two`}
-            session={`${session}_two`}
-          />
-        )}
-        {view === "perf" && (
-          <OneViewPerf
-            moveFirst={moveFirst}
-            setMoveFirst={setMoveFirst}
-            showResizeHandle={false}
-            hideMenu={false}
-            room={`${room}_perf`}
-            session={`${session}_perf`}
-          />
-        )}
-      </div>
-    </LockViewProvider>
+    <div className="App">
+      <TopBar setView={setView} />
+      {view === "one" && (
+        <OneView
+          moveFirst={moveFirst}
+          setMoveFirst={setMoveFirst}
+          showResizeHandle={true}
+          hideMenu={false}
+          room={`${room}_one`}
+          session={`${session}_one`}
+        />
+      )}
+      {view === "style" && (
+        <OneViewWithRoom
+          moveFirst={moveFirst}
+          setMoveFirst={setMoveFirst}
+          showResizeHandle={false}
+          hideMenu={false}
+          room={`${room}_one`}
+          session={`${session}_one`}
+        />
+      )}
+      {view === "custom" && (
+        <OneViewWithCustomBoardElements
+          moveFirst={moveFirst}
+          setMoveFirst={setMoveFirst}
+          showResizeHandle={false}
+          hideMenu={false}
+          room={`${room}_custom`}
+          session={`${session}_custom`}
+        />
+      )}
+      {view === "two" && (
+        <TwoView
+          moveFirst={moveFirst}
+          setMoveFirst={setMoveFirst}
+          showResizeHandle={false}
+          hideMenu={false}
+          room={`${room}_two`}
+          session={`${session}_two`}
+        />
+      )}
+      {view === "perf" && (
+        <OneViewPerf
+          moveFirst={moveFirst}
+          setMoveFirst={setMoveFirst}
+          showResizeHandle={false}
+          hideMenu={false}
+          room={`${room}_perf`}
+          session={`${session}_perf`}
+        />
+      )}
+    </div>
   );
 }
 

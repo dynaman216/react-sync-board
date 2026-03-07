@@ -10,14 +10,12 @@ import {
   transformTo,
 } from "@/utils";
 import useMainStore from "./store/main";
-import { useLockView } from "../contexts/LockViewContext.jsx";
-
 
 const TOLERANCE = 100;
 const MIN_SIZE = 1000;
 const SCALE_TOLERANCE = 0.8;
 
-let debug = false;
+let debug = true;
 
 /**
  * Return new board positions fixed to fit inside the board and not too far from the
@@ -106,13 +104,6 @@ const translateBoundaries = ({
 };
 
 const useDim = () => {
-  const { lockView } = useLockView();
-  const lockViewRef = React.useRef(lockView);
-
-  React.useEffect(() => {
-    lockViewRef.current = lockView;
-  }, [lockView]);
-
   const [
     getBoardState,
     updateBoardState,
@@ -211,7 +202,7 @@ const useDim = () => {
           itemExtent,
           boardWrapperRect,
           boardSize,
-          lockView: lockViewRef.current,
+          lockView: prev.limitPan,
         });
       }
 
@@ -256,7 +247,7 @@ const useDim = () => {
       let translateFn = (prev) => ({ ...prev, ...newTranslatOrFn });
       if (typeof newTranslatOrFn === "function") {
         translateFn = newTranslatOrFn;
-      }      
+      }
       setDimSafe((prev) => ({
         ...prev,
         ...translateFn({
