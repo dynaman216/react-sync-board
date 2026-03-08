@@ -22,29 +22,3 @@ build
 /lib/
 /dist/
 storybook-static/
-
-# for Eclipse
-.classpath
-.project
-.settings
-
-# for build
-target
-build
-
-# for IDEA
-*.iml
-*.ipr
-*.iws
-.idea/
-
-# for  mac
-.DS_Store
-
-/bin/
-/node_modules/
-/coverage/
-/lib/
-/dist/
-storybook-static/
-

@@ -137,17 +137,20 @@ const defaultInitialItems = [
   },
 ];
 
-function handleCenterBoard(center, scale) {
+const handleCenterBoard = (center, scale) => {
   center(prev => ({
     ...prev,
     translateX: -25000 * scale + window.innerWidth / 2,
     translateY: -25000 * scale + window.innerHeight / 2,
   }));
-}
+};
 
-function handleLimitPan(getBoardState, updateBoardState, limitPan) {  
+const handleLimitPan = (getBoardState, updateBoardState) => {
+  const { limitPan } = getBoardState();
   updateBoardState({ limitPan: !limitPan });
-}
+};
+
+
 
 const AddItems = () => {
   const { pushItem } = useItemActions();
@@ -216,7 +219,7 @@ const UserList = () => {
 };
 
 const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
-  //const { lockView, setLockView } = useLockView();
+  /*
   const { rotateBoard: rotate } = useDim();
   const { centerBoard: center } = useDim();
   const { scale } = useMainStore((state) => state.getBoardState());
@@ -225,6 +228,14 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
         state.getBoardState,
         state.updateBoardState,
       ]);
+*/
+  const { rotateBoard: rotate, centerBoard: center } = useDim();
+
+  const { scale, getBoardState, updateBoardState } = useMainStore((state) => ({
+    scale: state.getBoardState().scale,
+    getBoardState: state.getBoardState,
+    updateBoardState: state.updateBoardState,
+  }));
 
   return (
     <div
@@ -276,7 +287,7 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
             <input
               type="checkbox"
               checked={getBoardState().limitPan}
-              onChange={() => handleLimitPan(getBoardState, updateBoardState, getBoardState().limitPan)}
+              onChange={() => handleLimitPan(getBoardState, updateBoardState)}
             />{" "}
             Limit Pan
           </label>
