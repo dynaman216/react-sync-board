@@ -137,20 +137,17 @@ const defaultInitialItems = [
   },
 ];
 
-const handleCenterBoard = (center, scale) => {
+function handleCenterBoard(center, scale) {
   center(prev => ({
     ...prev,
     translateX: -25000 * scale + window.innerWidth / 2,
     translateY: -25000 * scale + window.innerHeight / 2,
   }));
-};
+}
 
-const handleLimitPan = (getBoardState, updateBoardState) => {
-  const { limitPan } = getBoardState();
+function handleLimitPan(getBoardState, updateBoardState, limitPan) {  
   updateBoardState({ limitPan: !limitPan });
-};
-
-
+}
 
 const AddItems = () => {
   const { pushItem } = useItemActions();
@@ -219,7 +216,7 @@ const UserList = () => {
 };
 
 const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
-  /*
+  //const { lockView, setLockView } = useLockView();
   const { rotateBoard: rotate } = useDim();
   const { centerBoard: center } = useDim();
   const { scale } = useMainStore((state) => state.getBoardState());
@@ -228,6 +225,7 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
         state.getBoardState,
         state.updateBoardState,
       ]);
+<<<<<<< HEAD
 */
   const { rotateBoard: rotate, centerBoard: center } = useDim();
   const limitPan = useMainStore((state) => state.boardState.limitPan);
@@ -237,6 +235,8 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
     getBoardState: state.getBoardState,
     updateBoardState: state.updateBoardState,
   }));
+=======
+>>>>>>> parent of efbd4f5 (Paul Changes 002)
 
   return (
     <div
@@ -287,10 +287,16 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
           <label>
             <input
               type="checkbox"
+<<<<<<< HEAD
               checked={limitPan}
               onChange={() => updateBoardState({ limitPan: !limitPan })}
             />
 
+=======
+              checked={getBoardState().limitPan}
+              onChange={() => handleLimitPan(getBoardState, updateBoardState, getBoardState().limitPan)}
+            />{" "}
+>>>>>>> parent of efbd4f5 (Paul Changes 002)
             Limit Pan
           </label>
         </div>
