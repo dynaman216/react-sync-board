@@ -215,7 +215,7 @@ const getLinkedItemsRecursive = (itemMap, itemIds, alreadyMet = null) => {
           // If the item has been removed but not from linked list
           return [
             itemId,
-            ...getLinkedItemsRecursive(
+            ...(
               itemMap,
               itemMap[itemId].linkedItems,
               alreadyMet

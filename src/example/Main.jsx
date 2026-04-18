@@ -222,31 +222,11 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
   const { rotateBoard: rotate, centerBoard: center } = useDim();
   const { scale } = useMainStore((state) => state.getBoardState());
   const [getBoardState, updateBoardState] =
-<<<<<<< Updated upstream
-      useMainStore((state) => [
-        state.getBoardState,
-        state.updateBoardState,
-      ]);
-<<<<<<< HEAD
-*/
-  const { rotateBoard: rotate, centerBoard: center } = useDim();
-  const limitPan = useMainStore((state) => state.boardState.limitPan);
-
-  const { scale, getBoardState, updateBoardState } = useMainStore((state) => ({
-    scale: state.getBoardState().scale,
-    getBoardState: state.getBoardState,
-    updateBoardState: state.updateBoardState,
-  }));
-=======
->>>>>>> parent of efbd4f5 (Paul Changes 002)
-=======
     useMainStore((state) => [
       state.getBoardState,
       state.updateBoardState,
     ]);
   const limitPan = useMainStore((state) => state.boardState.limitPan);
->>>>>>> Stashed changes
-
   return (
     <div
       style={{
@@ -296,21 +276,9 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
           <label>
             <input
               type="checkbox"
-<<<<<<< Updated upstream
-<<<<<<< HEAD
               checked={limitPan}
               onChange={() => updateBoardState({ limitPan: !limitPan })}
             />
-
-=======
-              checked={getBoardState().limitPan}
-              onChange={() => handleLimitPan(getBoardState, updateBoardState, getBoardState().limitPan)}
-=======
-              checked={limitPan}
-              onChange={() => handleLimitPan(updateBoardState, limitPan)}
->>>>>>> Stashed changes
-            />{" "}
->>>>>>> parent of efbd4f5 (Paul Changes 002)
             Limit Pan
           </label>
         </div>
