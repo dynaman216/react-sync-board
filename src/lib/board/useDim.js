@@ -153,7 +153,7 @@ const useDim = () => {
     },
     [getBoardState]
   );
-
+0
   /**
    * Clamp scale to boundaries limits.
    */

@@ -230,6 +230,7 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
       ]);
 */
   const { rotateBoard: rotate, centerBoard: center } = useDim();
+  const limitPan = useMainStore((state) => state.boardState.limitPan);
 
   const { scale, getBoardState, updateBoardState } = useMainStore((state) => ({
     scale: state.getBoardState().scale,
@@ -286,9 +287,10 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
           <label>
             <input
               type="checkbox"
-              checked={getBoardState().limitPan}
-              onChange={() => handleLimitPan(getBoardState, updateBoardState)}
-            />{" "}
+              checked={limitPan}
+              onChange={() => updateBoardState({ limitPan: !limitPan })}
+            />
+
             Limit Pan
           </label>
         </div>
