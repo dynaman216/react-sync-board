@@ -262,7 +262,7 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
         <div style={{ margin: "10px 0" }}>
           <label>
             <input
-              type="checkbox"
+              type="checkbox" 
               checked={moveFirst}
               onChange={() => {
                 setMoveFirst((prev) => !prev);

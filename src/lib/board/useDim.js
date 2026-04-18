@@ -31,7 +31,7 @@ const translateBoundaries = ({
   boardSize,
   lockView,
 }) => {
-  let [newX, newY] = [x, y];
+  let [newX, newY] = [x, y]; 
 
   const screenCenter = transformFrom(
     [boardWrapperRect.width / 2, boardWrapperRect.height / 2],

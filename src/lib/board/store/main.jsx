@@ -33,7 +33,7 @@ const boardState = (set, get) => ({
   },
   // TODO optimize when same values as before
   updateBoardState: (toUpdate) =>
-    set((state) => ({ boardState: { ...state.boardState, ...toUpdate } })),
+    set((state) => ({ boardState: { ...state.boardState, ...toUpdate } })), 
   getBoardState: () => get().boardState,
 });
 
