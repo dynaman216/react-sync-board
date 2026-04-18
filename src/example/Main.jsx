@@ -145,7 +145,7 @@ function handleCenterBoard(center, scale) {
   }));
 }
 
-function handleLimitPan(getBoardState, updateBoardState, limitPan) {  
+function handleLimitPan(updateBoardState, limitPan) {
   updateBoardState({ limitPan: !limitPan });
 }
 
@@ -217,10 +217,12 @@ const UserList = () => {
 
 const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
   //const { lockView, setLockView } = useLockView();
-  const { rotateBoard: rotate } = useDim();
-  const { centerBoard: center } = useDim();
+  //const { rotateBoard: rotate } = useDim();
+  //const { centerBoard: center } = useDim();
+  const { rotateBoard: rotate, centerBoard: center } = useDim();
   const { scale } = useMainStore((state) => state.getBoardState());
   const [getBoardState, updateBoardState] =
+<<<<<<< Updated upstream
       useMainStore((state) => [
         state.getBoardState,
         state.updateBoardState,
@@ -237,6 +239,13 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
   }));
 =======
 >>>>>>> parent of efbd4f5 (Paul Changes 002)
+=======
+    useMainStore((state) => [
+      state.getBoardState,
+      state.updateBoardState,
+    ]);
+  const limitPan = useMainStore((state) => state.boardState.limitPan);
+>>>>>>> Stashed changes
 
   return (
     <div
@@ -287,6 +296,7 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
           <label>
             <input
               type="checkbox"
+<<<<<<< Updated upstream
 <<<<<<< HEAD
               checked={limitPan}
               onChange={() => updateBoardState({ limitPan: !limitPan })}
@@ -295,6 +305,10 @@ const Overlay = ({ children, hideMenu, moveFirst, setMoveFirst }) => {
 =======
               checked={getBoardState().limitPan}
               onChange={() => handleLimitPan(getBoardState, updateBoardState, getBoardState().limitPan)}
+=======
+              checked={limitPan}
+              onChange={() => handleLimitPan(updateBoardState, limitPan)}
+>>>>>>> Stashed changes
             />{" "}
 >>>>>>> parent of efbd4f5 (Paul Changes 002)
             Limit Pan

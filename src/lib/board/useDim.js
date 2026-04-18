@@ -15,7 +15,7 @@ const TOLERANCE = 100;
 const MIN_SIZE = 1000;
 const SCALE_TOLERANCE = 0.8;
 
-let debug = true;
+let debug = false;
 
 /**
  * Return new board positions fixed to fit inside the board and not too far from the
